@@ -1,6 +1,6 @@
 from selenium import webdriver
 import time
-
+#comment1
 driver = webdriver.Chrome()
 driver.get("http://www.google.com")
 print("Loading the GOOGLE site")
