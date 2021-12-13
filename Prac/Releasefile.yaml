@@ -1,6 +1,6 @@
 # Exported from:        http://LAPTOP-LBQA6LE0:5516/
 # Release version:      10.4.0-SNAPSHOT
-# Date created:         Mon Dec 13 11:08:05 IST 2021
+# Date created:         Mon Dec 13 11:10:51 IST 2021
 
 ---
 apiVersion: xl-release/v1
@@ -19,6 +19,7 @@ spec:
   - stage: New Stage
 - template: temp01
   scheduledStartDate: 2021-12-13T09:00:00+05:30
+  dueDate: 2021-12-13T10:00:00+05:30
   phases:
   - phase: New Phase
     tasks:
