@@ -1,6 +1,6 @@
-# Exported from:        http://LAPTOP-LBQA6LE0:5517/
-# Release version:      22.0.0-rc.1
-# Date created:         Wed Jan 19 15:15:36 IST 2022
+# Exported from:        http://LAPTOP-LBQA6LE0:5516/
+# Release version:      22.0.0-2022119.113
+# Date created:         Wed Jan 19 16:48:28 IST 2022
 
 ---
 apiVersion: xl-release/v1
@@ -8,137 +8,16 @@ kind: Templates
 metadata:
   home: prac
 spec:
-- folderVariables:
-  - type: xlrelease.PasswordStringVariable
-    key: folder.varpwd
-    value: !value "xlrelease_PasswordStringVariable_folder_varpwd_value"
-- pattern: pattern1
-  stages:
-  - stage: dev
-  - stage: qa
-  - stage: prod
-- pattern: pattern2
-  stages:
-  - stage: dev
-    transition:
-      name: New Transition
-      type: delivery.Transition
-      conditions:
-      - type: delivery.ConditionGroup
-        operator: OR
-        conditions:
-        - type: delivery.ConditionGroup
-          operator: AND
-          conditions:
-          - type: delivery.TimeCondition
-  - stage: qa
-  - stage: prod
-- pattern: pattern3
-  stages:
-  - stage: New Stage
-  - stage: New Stage (1)
-  - stage: New Stage (2)
-  - stage: New Stage (3)
-  - stage: New Stage (15)
-  - stage: New Stage (14)
-  - stage: New Stage (13)
-  - stage: New Stage (12)
-  - stage: New Stage (11)
-  - stage: New Stage (10)
-  - stage: New Stage (9)
-  - stage: New Stage (8)
-  - stage: New Stage (7)
-  - stage: New Stage (6)
-  - stage: New Stage (5)
-  - stage: New Stage (4)
-- template: temp01
-  scheduledStartDate: 2022-01-18T09:00:00+05:30
-  phases:
-  - phase: New Phase
-    tasks:
-    - name: as1
-      type: delivery.WaitForTrackedItems
-      trackedItems:
-      - item2
-      stage: qa
-      delivery: prac/del
-  scriptUsername: admin
-  scriptUserPassword: !value "xlrelease_Release_temp01_scriptUserPassword"
-  riskProfile: Default risk profile
-- template: temp02
-  scheduledStartDate: 2022-01-18T09:00:00+05:30
-  phases:
-  - phase: New Phase
-    tasks:
-    - name: as1
-      type: delivery.WaitForTrackedItems
-      trackedItems:
-      - it1
-      stage: dev
-      delivery: prac/del
-  scriptUsername: admin
-  scriptUserPassword: !value "xlrelease_Release_temp02_scriptUserPassword"
-  riskProfile: Default risk profile
-- template: template-var
-  scheduledStartDate: 2022-01-19T09:00:00+05:30
-  phases:
-  - phase: "${test}"
-    tasks:
-    - name: t1
-      type: xlrelease.Task
-    color: '#3d6c9e'
-  - phase: "${test}"
-    tasks:
-    - name: t1
-      type: xlrelease.Task
-    color: '#3d6c9e'
-  - phase: "${test}"
-    tasks:
-    - name: t1
-      type: xlrelease.Task
-    color: '#3d6c9e'
-  variables:
-  - type: xlrelease.StringVariable
-    key: test
-    value: test
-  riskProfile: Default risk profile
-- template: tp-a
+- template: temp-01
   scheduledStartDate: 2022-01-19T09:00:00+05:30
   phases:
   - phase: New Phase
     tasks:
     - name: t1
-      type: delivery.MarkTrackedItems
-      trackedItems:
-      - IT1
-      stage: dev
-      delivery: prac/del-from-task1
+      type: xlrelease.ScriptTask
+      script: print("HEYYYY")
   scriptUsername: admin
-  scriptUserPassword: !value "xlrelease_Release_tp_a_scriptUserPassword"
-  riskProfile: Default risk profile
-- template: tp-g
-  scheduledStartDate: 2022-01-18T09:00:00+05:30
-  phases:
-  - phase: New Phase
-    tasks:
-    - name: asd
-      type: delivery.FindOrCreateDelivery
-      searchStrategy: Search by criteria
-      nameFilter: del-from-task
-      fallback: true
-      ^title: del-from-task
-      pattern: ./pattern2
-      folder: ./
-  scriptUsername: admin
-  scriptUserPassword: !value "xlrelease_Release_tp_g_scriptUserPassword"
-  riskProfile: Default risk profile
-- template: tp-man
-  scheduledStartDate: 2022-01-18T09:00:00+05:30
-  phases:
-  - phase: New Phase
-    tasks:
-    - name: t1
-      type: xlrelease.Task
+  scriptUserPassword: !value "xlrelease_Release_temp_01_scriptUserPassword"
   riskProfile: Default risk profile
 - notifications:
   - notification: TASK_OVERDUE
@@ -339,3 +218,76 @@ spec:
     - Watcher
     - Task Team
     - Task Owner
+---
+apiVersion: xl-release/v1
+kind: Permissions
+metadata:
+  home: prac
+spec:
+- directory: "."
+  teams:
+  - name: Release Admin
+    users:
+    - admin
+    permissions:
+    - release#edit_precondition
+    - release#edit
+    - release#edit_task_attachments
+    - release#task_transition
+    - trigger#view_trigger
+    - release#reassign_task
+    - release#edit_task_input_output_properties
+    - release#edit_task_tags
+    - release#edit_security
+    - release#edit_task_description
+    - trigger#edit_trigger
+    - release#view
+    - release#lock_task
+    - release#start
+    - release#edit_blackout
+    - release#edit_failure_handler
+    - folder#view
+    - release#abort
+    - release#edit_task_script
+    - release#edit_task_configuration_facet
+    - release#edit_task_flag
+    - release#edit_task_dates
+    - release#edit_task
+  - name: Template Owner
+    users:
+    - admin
+    permissions:
+    - template#create_release_other_folder
+    - template#edit
+    - trigger#view_trigger
+    - template#lock_task
+    - template#view
+    - folder#view
+    - template#edit_security
+    - template#create_release
+    - template#edit_triggers
+    - template#edit_precondition
+    - template#edit_failure_handler
+  - name: Folder Owner
+    users:
+    - admin
+    permissions:
+    - folder#edit_variables
+    - delivery_pattern#edit
+    - folder#edit_configuration
+    - delivery#edit
+    - folder#view_versions
+    - folder#apply_changes
+    - group#view
+    - folder#edit_versions
+    - folder#edit_notifications
+    - delivery_pattern#view
+    - group#edit
+    - delivery#view
+    - delivery#edit_tracked_item
+    - folder#view
+    - folder#edit_security
+    - dashboard#edit
+    - folder#edit
+    - dashboard#view
+    - folder#generate_configuration
