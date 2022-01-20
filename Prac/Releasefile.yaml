@@ -1,6 +1,6 @@
 # Exported from:        http://LAPTOP-LBQA6LE0:5516/
 # Release version:      22.0.0-SNAPSHOT
-# Date created:         Thu Jan 20 11:31:59 IST 2022
+# Date created:         Thu Jan 20 13:56:39 IST 2022
 
 ---
 apiVersion: xl-release/v1
@@ -22,8 +22,15 @@ spec:
       script: |-
         for i in range(10):
             print(i)
+    - name: t2
+      type: xlrelease.Task
   scriptUsername: admin
   scriptUserPassword: !value "xlrelease_Release_template_jy_scriptUserPassword"
+  riskProfile: Default risk profile
+- template: tp02
+  scheduledStartDate: 2022-01-20T09:00:00+05:30
+  phases:
+  - phase: New Phase
   riskProfile: Default risk profile
 - notifications:
   - notification: TASK_OVERDUE
