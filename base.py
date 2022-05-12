@@ -12,4 +12,6 @@ print("Waiting")
 driver.maximize_window()
 print("Maximizing the window")
 time.sleep(10)
+for i in range(3):
+    print(i)
 driver.quit()
