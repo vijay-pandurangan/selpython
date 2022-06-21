@@ -1,5 +1,3 @@
 # selpython
 
 
-
-#one
